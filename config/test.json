@@ -1,0 +1,9 @@
+{
+  "App": {
+    "resources": {
+      "CoinGecko": {
+        "apiToken": "test-token"
+      }
+    }
+  }
+}
