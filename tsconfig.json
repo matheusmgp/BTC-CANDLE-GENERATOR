@@ -6,7 +6,7 @@
     "module": "commonjs",
     "lib": ["es2019", "ES5", "ES6"],
     "sourceMap": true,
-    "outDir": "dist",
+
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -19,14 +19,16 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./",
     "paths": {
       "@src/*": ["./src/*"],
       "@test/*": ["./test/*"]
     },
-    "rootDirs": ["./src", "./test"],
+    //"rootDirs": ["./src", "./test"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["./src/**/*.ts", "./test/**/*.ts"],
+  "include": ["./src/**/*.ts", "./test/**/*.ts", "src"],
   "exclude": ["./node_modules/*", "dist"]
 }

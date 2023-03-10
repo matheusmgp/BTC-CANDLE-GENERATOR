@@ -1,3 +1,4 @@
+import "./util/module-alias";
 import { config } from "dotenv";
 import { GerenateCandles } from "./messages/generate-candles";
 import { CoinGeckoService } from "./client/coingecko.service";

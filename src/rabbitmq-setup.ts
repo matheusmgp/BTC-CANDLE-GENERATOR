@@ -1,5 +1,10 @@
 import client, { Connection, Channel, ConsumeMessage } from "amqplib";
-import ISetupRabbitMq from "./rabbitmq-interface";
+
+export default interface ISetupRabbitMq {
+  init(): Promise<void>;
+  sendMessage(payload: any): void;
+  getChannel(): any;
+}
 
 export class SetupRabbitMq implements ISetupRabbitMq {
   constructor() {}
@@ -15,9 +20,8 @@ export class SetupRabbitMq implements ISetupRabbitMq {
     await this.createChannel();
     await this.channel.assertQueue(this.QUEUE);
   }
-  public sendMessage(payload: any): void {
-    const message = JSON.stringify(payload);
-    this.channel.sendToQueue(this.QUEUE, Buffer.from(Buffer.from(message)));
+  public sendMessage(message: any): void {
+    this.channel.sendToQueue(this.QUEUE, Buffer.from(message));
   }
   private async getConnection(): Promise<void> {
     this.connection = await client.connect(

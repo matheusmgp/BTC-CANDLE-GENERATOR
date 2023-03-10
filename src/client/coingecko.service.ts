@@ -10,16 +10,16 @@ export class CoinGeckoService implements ICoinGeckoService {
   constructor(protected request = new HTTPUtil.Request()) {}
 
   public readMarketPrice = async (): Promise<number> => {
-    const response = await this.request.get<CoinGeckoResponse>(
-      `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd`,
+    const { data } = await this.request.get<CoinGeckoResponse>(
+      process.env.PRICES_API ?? "",
       {
         headers: {
           Authorization: "",
         },
       }
     );
-    console.log(response);
-    const price = response.data.bitcoin.usd;
+
+    const price = data.bitcoin.usd;
     return price;
   };
 }

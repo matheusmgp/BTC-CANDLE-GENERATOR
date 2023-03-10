@@ -21,23 +21,19 @@ export default class Candle {
   }
 
   addValue(value: number) {
-    this.values.push(value);
-
-    if (this.values.length == 1) {
+    if (this.arraySize() === 0) {
       this.open = value;
     }
-    if (this.low > value) {
-      this.low = value;
-    }
-    if (this.high < value) {
-      this.high = value;
-    }
+    this.values.push(value);
+    this.low > value ? (this.low = value) : null;
+    this.high < value ? (this.high = value) : null;
   }
 
   closeCandle() {
-    if (this.values.length > 0) {
-      this.close = this.values[this.values.length - 1];
+    if (this.arraySize() > 0) {
+      this.close = this.getArrayLastPosition();
       this.finalDateTime = new Date();
+
       if (this.open > this.close) {
         this.color = CandleColor.RED;
       } else if (this.close > this.open) {
@@ -48,7 +44,12 @@ export default class Candle {
 
   toSimpleObject() {
     const { values, ...obj } = this;
-
     return obj;
+  }
+  arraySize() {
+    return this.values.length;
+  }
+  getArrayLastPosition() {
+    return this.values[this.values.length - 1];
   }
 }
