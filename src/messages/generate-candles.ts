@@ -14,7 +14,7 @@ export class GerenateCandles {
 
     if (messageChannel) {
       while (true) {
-        const loopTimes = Period.FIVE_MINUTES / Period.TEN_SECONDS;
+        const loopTimes = Period.THIRTY_SECONDS / Period.TEN_SECONDS;
         const candle = new Candle("BTC");
 
         console.log("Generating new candle");
@@ -24,7 +24,7 @@ export class GerenateCandles {
           candle.addValue(price);
           console.log(`Market price #${i + 1} of ${loopTimes} -> $ ${price}`);
           //aguarda 10 segundos ate a proxima request
-          await new Promise((r) => setTimeout(r, Period.THIRTY_SECONDS));
+          await new Promise((r) => setTimeout(r, Period.TEN_SECONDS));
         }
         candle.closeCandle();
         console.log("Candle Closed");

@@ -13,19 +13,21 @@ export class SetupRabbitMq implements ISetupRabbitMq {
   private producer: any;
   private connection: Connection;
   private channel: Channel;
-  private QUEUE: string = "candles";
 
   public async init(): Promise<void> {
     await this.getConnection();
     await this.createChannel();
-    await this.channel.assertQueue(this.QUEUE);
+    await this.channel.assertQueue(process.env.QUEUE_NAME ?? "candles");
   }
   public sendMessage(message: any): void {
-    this.channel.sendToQueue(this.QUEUE, Buffer.from(message));
+    this.channel.sendToQueue(
+      process.env.QUEUE_NAME ?? "candles",
+      Buffer.from(message)
+    );
   }
   private async getConnection(): Promise<void> {
     this.connection = await client.connect(
-      `amqp://dev:senhadev@127.0.0.1:5672`
+      process.env.AMQP_SERVER ?? `amqp://dev:senhadev@127.0.0.1:5672`
     );
   }
   private async createChannel(): Promise<void> {
